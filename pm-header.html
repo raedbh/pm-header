@@ -116,7 +116,7 @@
             <ul>
               <template is="dom-repeat" items="{{addons}}">
                 <li>
-                  <a href="http://localhost:8080[[item.menu_item.link]]">[[item.menu_item.label]]</a>
+                  <a href="[[item.menu_item.link]]">[[item.menu_item.label]]</a>
                 </li>
               </template>
             </ul>
@@ -216,8 +216,8 @@
             break;
         }
         this.updateStyles({ '--main-bg-color': color });
-
-        this.addons = this.getAddonsSync("http://localhost:8080/pm/api/modules");
+        // todo : externalize param
+        this.addons = this.getAddonsSync("/pm/api/modules");
         console.log(this.addons[0].menu_item.link);
 
       }
