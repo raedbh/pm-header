@@ -153,7 +153,7 @@
         this._boundListener = this.alertHandler.bind(this);
       }
 
-      getAddonsSync(Url) {
+      getAddons(Url) {
 
         var request = new XMLHttpRequest();
         request.open('GET', Url, false);  // `false` makes the request synchronous
@@ -217,7 +217,7 @@
         }
         this.updateStyles({ '--main-bg-color': color });
         // todo : externalize param
-        this.addons = this.getAddonsSync("/pm/api/modules");
+        this.addons = this.getAddons("/pm/api/modules");
         console.log(this.addons[0].menu_item.link);
 
       }
