@@ -106,34 +106,31 @@
       }
     </style>
 
-    <nav>
-      <ul>
-        <li>
-          <a href="#">
-            <iron-icon icon="icons:apps"></iron-icon>
-          </a>
-          <div>
-            <ul>
-              <template is="dom-repeat" items="{{addons}}">
-                <li>
-                  <a href="[[item.menu_item.link]]">[[item.menu_item.label]]</a>
-                </li>
-              </template>
-            </ul>
-          </div>
-        </li>
+      <nav>
+        <ul>
+          <li>
+            <a href="#">
+              <iron-icon icon="icons:apps"></iron-icon>
+            </a>
+            <div>
+              <ul>
+                <template is="dom-repeat" items="{{addons}}">
+                  <li>
+                    <a href="[[item.menu_item.link]]">[[item.menu_item.label]]</a>
+                  </li>
+                </template>
+              </ul>
+            </div>
+          </li>
 
-        <li class="right">
-          <a href="#">
-            <iron-icon icon="social:notifications-none"></iron-icon>
-            [[count]]
-          </a>
-          <div>
-
-          </div>
-        </li>
-      </ul>
-    </nav>
+          <li class="right">
+            <a href="#">
+              <iron-icon icon="social:notifications-none"></iron-icon>
+              [[count]]
+            </a>
+          </li>
+        </ul>
+      </nav>
 
   </template>
 
@@ -153,38 +150,6 @@
         this._boundListener = this.alertHandler.bind(this);
       }
 
-      getAddons(Url) {
-
-        var request = new XMLHttpRequest();
-        request.open('GET', Url, false);  // `false` makes the request synchronous
-        request.send(null);
-
-        if (request.status === 200) {
-          return JSON.parse(request.responseText);
-        }
-      }
-
-      connectedCallback() {
-        super.connectedCallback();
-        window.addEventListener('alert', this._boundListener);
-      }
-
-      disconnectedCallback() {
-        super.disconnectedCallback();
-        // We must remove listeners to prevent memory leaks.
-        window.removeEventListener('alert', this._boundListener);
-      }
-
-      alertHandler(alerts) {
-        ++this.count;
-      }
-
-      static displayAlerts(alerts) {
-        console.log(alerts);
-        var event = new CustomEvent('alert', alerts);
-        window.dispatchEvent(event);
-      }
-
       static get is() { return 'pm-header'; }
 
       static get properties() {
@@ -198,6 +163,7 @@
           }
         };
       }
+
       ready() {
         super.ready();
 
@@ -218,9 +184,46 @@
         this.updateStyles({ '--main-bg-color': color });
         // todo : externalize param
         this.addons = this.getAddons("/pm/api/modules");
-        console.log(this.addons[0].menu_item.link);
 
       }
+
+      getAddons(Url) {
+        var request = new XMLHttpRequest();
+        request.open('GET', Url, false);  // `false` makes the request synchronous
+        request.send(null);
+
+        if (request.status === 200) {
+          try {
+            return JSON.parse(request.responseText);
+          } catch (error) {
+            console.warn("Not a Json");
+            return null;
+          }
+        } else {
+          return null;
+        }
+      }
+
+      connectedCallback() {
+        super.connectedCallback();
+        window.addEventListener('alert', this._boundListener);
+      }
+
+      disconnectedCallback() {
+        super.disconnectedCallback();
+        // We must remove listeners to prevent memory leaks.
+        window.removeEventListener('alert', this._boundListener);
+      }
+
+      alertHandler(alerts) {
+        ++this.count;
+      }
+
+      static displayAlerts(alerts) {
+        var event = new CustomEvent('alert', alerts);
+        window.dispatchEvent(event);
+      }
+
     }
 
     window.customElements.define(PmHeader.is, PmHeader);
