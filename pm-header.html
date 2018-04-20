@@ -46,8 +46,8 @@
       nav>ul>li>a {
         color: #aaa;
         display: block;
-        line-height: 56px;
-        padding: 0 24px;
+        line-height: 48px;
+        padding: 0 18px;
         text-decoration: none;
       }
 
@@ -106,31 +106,48 @@
       }
     </style>
 
-      <nav>
-        <ul>
-          <li>
-            <a href="#">
-              <iron-icon icon="icons:apps"></iron-icon>
-            </a>
-            <div>
-              <ul>
-                <template is="dom-repeat" items="{{addons}}">
-                  <li>
-                    <a href="[[item.menu_item.link]]">[[item.menu_item.label]]</a>
-                  </li>
-                </template>
-              </ul>
-            </div>
-          </li>
+    <nav>
+      <ul>
+        <li>
+          <a href="#">
+            Logo here
+          </a>
+        </li>
+        <li>
+          <a href="/">
+            <iron-icon icon="icons:home"></iron-icon>
+          </a>
+        </li>
+        <li>
+          <a href="#">
+            <iron-icon icon="icons:apps"></iron-icon>
+          </a>
+          <div>
+            <ul>
+              <template is="dom-repeat" items="{{addons}}">
+                <li>
+                  <a href="[[item.menu_item.link]]">[[item.menu_item.label]]</a>
+                </li>
+              </template>
+            </ul>
+          </div>
+        </li>
 
-          <li class="right">
-            <a href="#">
-              <iron-icon icon="social:notifications-none"></iron-icon>
-              [[count]]
-            </a>
-          </li>
-        </ul>
-      </nav>
+        <li class="right">
+          <a href="#">
+            <iron-icon icon="icons:account-circle"></iron-icon>
+          </a>
+        </li>
+
+        <li class="right">
+          <a href="#">
+            <iron-icon icon="social:notifications-none"></iron-icon>
+            [[count]]
+          </a>
+        </li>
+
+      </ul>
+    </nav>
 
   </template>
 
