@@ -100,7 +100,12 @@
       nav>ul>li>div ul>li:hover>a {
         background-color: rgba( 255, 255, 255, 0.1);
       }
-
+      .logo>img {
+        vertical-align: middle
+      }
+      .logo:hover {
+        background-color: transparent;
+      }
       .right {
         float: right;
       }
@@ -108,10 +113,8 @@
 
     <nav>
       <ul>
-        <li>
-          <a href="#">
-            <img src="[[logo]]" height="18" width="18">
-          </a>
+        <li class="logo">
+            <img src="[[logo]]">
         </li>
         <li>
           <a href="/">
@@ -192,8 +195,9 @@
           case 'gray':
             color = '#7e7e7e';
             break;
-          case 'dark':
+          case 'entervo':
             color = '#424242';
+            this.logo = "../images/entervo.png";
             break;
           case 'indigo':
             color = '#7986CB';
