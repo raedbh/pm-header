@@ -148,7 +148,9 @@
         <li class="right">
           <a href="#">
             <iron-icon icon="social:notifications-none"></iron-icon>
-            [[count]]
+            <template is="dom-if" if="[[count]]">
+              [[count]]
+            </template>
           </a>
         </li>
 
